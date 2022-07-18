@@ -48,6 +48,8 @@ const Login = () => {
     }
   };
 
+  console.log('isAuth',isAuth)
+
   return (
     <>  
       <Container maxWidth="xs">

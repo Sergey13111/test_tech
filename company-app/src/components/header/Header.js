@@ -22,29 +22,29 @@ import { selectIsAuth, logout } from '../../store/auth/authSlice';
 
 
 const drawerWidth = 240;
-const navItems = [
-  <NavLink  to="/">Home</NavLink>,
-  <NavLink to="SignUp">SignUp</NavLink>,
-  <NavLink to="Login">Login</NavLink>,
-  <NavLink to="Companies">Companies</NavLink>,
-  <NavLink to="Profile">Profile</NavLink>,
-  // <Button onClick={onClickLogout} variant="contained" color="error">
-  //   Выйти
-  // </Button>
-];
+
+
 
 function Header(props) {
   const dispatch = useDispatch();
-  // const isAuth = useSelector(selectIsAuth);
+  const isAuth = useSelector(selectIsAuth);
 
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
+    
+const navItems = isAuth ? [
+  <NavLink  to="/">Home</NavLink>,
+  <NavLink to="Companies">Companies</NavLink>,
+  <NavLink to="Profile">Profile</NavLink>,
+] : [
+  <NavLink  to="/">Home</NavLink>,
+  <NavLink to="SignUp">SignUp</NavLink>,
+  <NavLink to="Login">Login</NavLink>,
+];
 
   const onClickLogout = () => {
-    if (window.confirm('Are you sure you want to log?')) {
-      dispatch(logout());
+    dispatch(logout());
       window.localStorage.removeItem('token');
-    }
   };
 
   const handleDrawerToggle = () => {
@@ -99,9 +99,11 @@ function Header(props) {
                 </Button>
               ))}
             </Box>
+            {isAuth && 
             <Button onClick={onClickLogout} variant="contained" color="error">
               Выйти
             </Button>
+            }
           </Toolbar>
         </AppBar>
         <Box component="nav">

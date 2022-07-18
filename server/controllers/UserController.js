@@ -6,7 +6,7 @@ import UserModel from '../models/User.js';
 export const register = async (req, res) => {
   try {
     const password = req.body.password;
-    const salt = await bcrypt.genSalt(10);
+    const salt = await bcrypt.genSalt(5);
     const hash = await bcrypt.hash(password, salt);
 
     const doc = new UserModel({
@@ -22,11 +22,12 @@ export const register = async (req, res) => {
       },
       'secret123',
       {
-        expiresIn: '1d',
+        expiresIn: '24h',
       },
     );
 
     const { passwordHash, ...userData } = user._doc;
+          
 
     res.json({
       ...userData,
@@ -49,13 +50,14 @@ export const login = async (req, res) => {
         message: 'Пользователь не найден',
       });
     }
-
+   
     const isValidPass = await bcrypt.compare(req.body.password, user._doc.passwordHash);
+    
     if (!isValidPass) {
       return res.status(400).json({
         message: 'Неверный логин или пароль',
       });
-    }
+    } 
 
     const token = jwt.sign(
       {
@@ -63,7 +65,7 @@ export const login = async (req, res) => {
       },
       'secret123',
       {
-        expiresIn: '1d',
+        expiresIn: '24h',
       },
     );
  
@@ -80,7 +82,7 @@ export const login = async (req, res) => {
     });
   } 
 }; 
- 
+
 export const getMe = async (req, res) => {
   try {
     const user = await UserModel.findById(req.userId);

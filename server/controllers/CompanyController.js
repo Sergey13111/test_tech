@@ -2,7 +2,7 @@ import CompanyModel from '../models/Company.js';
 
 export const getAll = async (req, res) => {
   try {
-    const companies = await CompanyModel.find().populate('userId').exec();
+    const companies = await CompanyModel.find().populate('user').exec();
     res.json(companies);
   } catch (err) {
     console.log(err);
@@ -55,7 +55,7 @@ export const create = async (req, res) => {
       numberOfEmployees: req.body.numberOfEmployees,
       description: req.body.description,
       type: req.body.type,
-      userId: req.userId,
+      user: req.userId,
     });
 
     const company = await doc.save();
@@ -97,4 +97,4 @@ export const update = async (req, res) => {
       message: 'Не удалось обновить информацию компании',
     });
   }
-};
+}; 

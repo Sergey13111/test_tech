@@ -15,20 +15,20 @@ mongoose
   .then(() => console.log('DB ok'))
   .catch((err) => console.log('DB error', err));
 
-const app = express();
+const app = express(); 
 
 app.use(express.json());
 app.use(cors());
 
-app.post('/auth/login', loginValidation, handleValidationErrors, UserController.login);
-app.post('/auth/register', registerValidation, handleValidationErrors, UserController.register);
-app.get('/auth/me', checkAuth, UserController.getMe);
+app.post('/login', loginValidation, handleValidationErrors, UserController.login);
+app.post('/signup', registerValidation, handleValidationErrors, UserController.register);
+app.get('/me', checkAuth, UserController.getMe); 
 
 app.get('/Companies', CompanyController.getAll);
 app.get('/Companies/:id', CompanyController.getOne);
 app.post('/Companies', checkAuth, handleValidationErrors, CompanyController.create);
 // app.patch(
-//   '/companies/:id',  
+//   '/companies/:id',    
 //   checkAuth,
 //   handleValidationErrors,
 //   CompanyController.update, 
