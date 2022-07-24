@@ -1,6 +1,6 @@
 import { TextField, Container, Button, Box } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { Navigate, Outlet } from 'react-router-dom';
+import { useNavigate, Outlet } from 'react-router-dom';
 
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -11,6 +11,7 @@ import { fetchAuth, selectIsAuth } from '../../store/auth/authSlice';
 
 const Login = () => {
   const isAuth = useSelector(selectIsAuth);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const schema = yup
@@ -44,7 +45,7 @@ const Login = () => {
     }
 
     if (isAuth) {
-      return <Navigate to="/" />;
+      return navigate('/');
     }
   };
 

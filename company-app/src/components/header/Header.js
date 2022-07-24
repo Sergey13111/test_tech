@@ -13,7 +13,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
@@ -26,6 +26,7 @@ const drawerWidth = 240;
 
 
 function Header(props) {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const isAuth = useSelector(selectIsAuth);
 
@@ -44,7 +45,8 @@ const navItems = isAuth ? [
 
   const onClickLogout = () => {
     dispatch(logout());
-      window.localStorage.removeItem('token');
+    localStorage.removeItem('token');
+    navigate('/');
   };
 
   const handleDrawerToggle = () => {

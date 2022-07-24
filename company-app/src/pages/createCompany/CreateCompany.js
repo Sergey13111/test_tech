@@ -41,19 +41,21 @@ const CreateCompany = () => {
     }
   });
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const handleCreateCompany =(data) => {
-    console.log(data);
+    
 
     dispatch(createCompany(data)).then(res => {
       if (!res.error) {
-        navigate(`/Company/${res.payload.id}`, {replace: true})
+        navigate(`/Company/${res.payload._id}`, {replace: true})
       }
     })
     reset();
   };
   
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  
 
   return (
     <>
@@ -161,14 +163,12 @@ const CreateCompany = () => {
           Submit
         </Button>
       </Box>
-    </form>
+      </form>
 
 
-              <Outlet />
-      <h3>create</h3>
+        <Outlet />
     </>
   )
-  
 };
 
 export default CreateCompany

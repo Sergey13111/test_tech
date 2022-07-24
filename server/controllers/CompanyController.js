@@ -36,7 +36,7 @@ export const getOne = async (req, res) => {
 
         res.json(doc);
       },
-    ).populate('userId');
+    ).populate('user');
   } catch (err) {
     console.log(err);
     res.status(500).json({
@@ -84,7 +84,7 @@ export const update = async (req, res) => {
         numberOfEmployees: req.body.numberOfEmployees,
         description: req.body.description,
         type: req.body.type,
-        userId: req.userId,
+        user: req.userId,
       },
     );
 

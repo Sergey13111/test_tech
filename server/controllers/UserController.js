@@ -12,8 +12,14 @@ export const register = async (req, res) => {
     const doc = new UserModel({
       email: req.body.email,
       passwordHash: hash,
+      phoneNumber: req.body.phoneNumber,
+      lastName: req.body.lastName,
+      firstName: req.body.firstName,
+      nickName: req.body.nickName,
+      description: req.body.description,
+      position: req.body.position,
     });
-
+    
     const user = await doc.save();
 
     const token = jwt.sign(

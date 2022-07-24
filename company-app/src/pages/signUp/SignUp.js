@@ -1,28 +1,29 @@
 import { TextField, Container, Button, Box } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { Navigate, Outlet } from 'react-router-dom';
+import { useNavigate, Outlet } from 'react-router-dom';
 
 import { fetchRegister, selectIsAuth } from '../../store/auth/authSlice'
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from "yup";
+import * as yup from 'yup';
+import 'yup-phone-lite';
 
 
 const SignUp = () => {
   const isAuth = useSelector(selectIsAuth);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  
   const schema = yup
   .object({
     email: yup.string().email().required(),
     password: yup.string().required(),
-
-    // phoneNumber: yup.string().phone(),
-    // lastName: yup.string(),
-    // firstName: yup.string(),
-    // nickname: yup.string(),
-    // description: yup.string(),
-    // position: yup.string(),
+    phoneNumber: yup.string().phone().required(),
+    lastName: yup.string().required(),
+    firstName: yup.string().required(),
+    nickName: yup.string().required(),
+    description: yup.string().required(),
+    position: yup.string().required(),
   })
   .required();
 
@@ -33,8 +34,14 @@ const SignUp = () => {
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      email: 'test@test.com',
-      password: "123",
+      email: '',
+      password: '',
+      phoneNumber: '+38',
+      lastName: '',
+      firstName: '',
+      nickName: '',
+      description: '',
+      position: '',
     }
   });
 
@@ -50,14 +57,12 @@ const SignUp = () => {
     }
 
     if (isAuth) {
-      return <Navigate to="/" />;
+      return navigate('/');
     }
   };
 
   return ( 
-  // <h1>fsdsfdf</h1>
     <>
-    
       <Container maxWidth="xs">
         <h1>registrtation</h1>
 
@@ -93,16 +98,16 @@ const SignUp = () => {
             />
           </Box>
 
-          {/* <Box my={2}>
+          <Box my={2}>
             <Controller
-              name="password"
+              name="phoneNumber"
               control={control}
               render={({ field }) => (
                 <TextField
                   {...field}
-                  label="password"
-                  error={errors.password}
-                  helperText={errors.pasword?.message}
+                  label="Phone number"
+                  error={errors.phoneNumber}
+                  helperText={errors.phoneNumber?.message}
                 />
               )}
             />
@@ -110,14 +115,14 @@ const SignUp = () => {
 
           <Box my={2}>
             <Controller
-              name="password"
+              name="lastName"
               control={control}
               render={({ field }) => (
                 <TextField
                   {...field}
-                  label="password"
-                  error={errors.password}
-                  helperText={errors.pasword?.message}
+                  label="last name"
+                  error={errors.lastName}
+                  helperText={errors.lastName?.message}
                 />
               )}
             />
@@ -125,14 +130,14 @@ const SignUp = () => {
 
           <Box my={2}>
             <Controller
-              name="password"
+              name="firstName"
               control={control}
               render={({ field }) => (
                 <TextField
                   {...field}
-                  label="password"
-                  error={errors.password}
-                  helperText={errors.pasword?.message}
+                  label="First name"
+                  error={errors.firstName}
+                  helperText={errors.firstName?.message}
                 />
               )}
             />
@@ -140,14 +145,14 @@ const SignUp = () => {
 
           <Box my={2}>
             <Controller
-              name="password"
+              name="nickName"
               control={control}
               render={({ field }) => (
                 <TextField
                   {...field}
-                  label="password"
-                  error={errors.password}
-                  helperText={errors.pasword?.message}
+                  label="Nickname"
+                  error={errors.nickName}
+                  helperText={errors.nickName?.message}
                 />
               )}
             />
@@ -155,14 +160,14 @@ const SignUp = () => {
 
           <Box my={2}>
             <Controller
-              name="password"
+              name="description"
               control={control}
               render={({ field }) => (
                 <TextField
                   {...field}
-                  label="password"
-                  error={errors.password}
-                  helperText={errors.pasword?.message}
+                  label="Description"
+                  error={errors.description}
+                  helperText={errors.description?.message}
                 />
               )}
             />
@@ -170,18 +175,18 @@ const SignUp = () => {
 
           <Box my={2}>
             <Controller
-              name="password"
+              name="position"
               control={control}
               render={({ field }) => (
                 <TextField
                   {...field}
-                  label="password"
-                  error={errors.password}
-                  helperText={errors.pasword?.message}
+                  label="Position"
+                  error={errors.position}
+                  helperText={errors.position?.message}
                 />
               )}
             />
-          </Box> */}
+          </Box>
 
           <Button variant="contained" type="submit">
             Registration

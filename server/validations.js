@@ -7,7 +7,7 @@ export const loginValidation = [
 
 export const registerValidation = [
   body('email', 'Invalid mail format').isEmail(),
-  body('password', 'Password must be at least 3 characters').isLength({ min: 3 }),
-
+  body('password', 'Password must be at least 3 characters').
+  isLength({ min: 3 }),
 ];
 

@@ -7,10 +7,6 @@ import EditIcon from '@mui/icons-material/Edit';
 
 import { getCompany } from '../../store/company/companySlice';
 
-
-
-
-
 const Company = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -18,7 +14,7 @@ const Company = () => {
   const{ company, isLoading } = useSelector(state => state.company);
 
   const handleEditing = () => {
-    // navigate(`/Company/`)
+    navigate('/Company/')
   }
 
   useEffect(() => {
